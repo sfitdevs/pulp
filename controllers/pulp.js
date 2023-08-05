@@ -1,13 +1,19 @@
 const shortUniqueId = require("short-unique-id");
-// const db = require("../db/db.js");
+const database = require("../database/database.js");
 
 const id = new shortUniqueId({ dictionary: "alpha_lower", length: 5 });
 const ak = new shortUniqueId({ dictionary: "hex", length: 10 });
 
-const getPulp = (req, res) => {
+const getPulp = async (req, res) => {
   try {
-    let { key } = req.body;
-    // fetch the pulp from db and show
+    let { key } = req.params;
+    if (!key) return res.send("key not specified");
+    let pulpData = await database.get(key);
+    if (pulpData) {
+      res.send((({ password, accessKey, ...data }) => data)(pulpData));
+    } else {
+      res.send({ error: "pulp not found" });
+    }
   } catch (error) {
     res.send({ error: "internal server error" });
   }
@@ -15,22 +21,26 @@ const getPulp = (req, res) => {
 
 const createPulp = async (req, res) => {
   try {
-    let { code, language = "txt", password = "" } = req.body;
-    if (!code) return res.send({ error: "property `code` cannot be empty" });
-    // put into database
-    // let details = await db.put({ code, language, password, key: id(), timestamp: Date.now() });
-    let details = { code, language, password, key: id(), accessKey: ak(), timestamp: Date.now() };
-    res.send((({ password, ...o }) => o)(details));
+    let { content, language = "txt", password = "" } = req.body;
+    if (!content) return res.send({ error: "content can't be empty" });
+    let details = await database.put({ content, language, password, key: id(), accessKey: ak(), timestamp: Date.now(), views: 0 });
+    res.send((({ password, ...data }) => data)(details));
   } catch (error) {
     res.send({ error: "internal server error" });
   }
 }
 
-const deletePulp = (req, res) => {
+const deletePulp = async (req, res) => {
   try {
     let { accessKey } = req.body;
     if (!accessKey) return res.send("accessKey not specified");
-    // find by accessKey in database and delete particular pulp
+    let { items, count } = await database.fetch({ accessKey });
+    if (count) {
+      await database.delete(items[0].key);
+      res.send("pulp deleted successfully");
+    } else {
+      res.send("pulp not found");
+    }
   } catch (error) {
     res.send({ error: "internal server error" });
   }

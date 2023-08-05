@@ -3,7 +3,7 @@ const { getPulp, createPulp, deletePulp } = require("../controllers/pulp.js");
 const router = express.Router();
 
 router
-  .get("/", getPulp)
+  .get("/:key", getPulp)
   .post("/", createPulp)
   .delete("/", deletePulp);
 

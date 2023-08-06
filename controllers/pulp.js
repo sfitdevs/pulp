@@ -23,7 +23,8 @@ const createPulp = async (req, res) => {
   try {
     let { content, language = "txt", password = "" } = req.body;
     if (!content) return res.send({ error: "content can't be empty" });
-    let details = await database.put({ content, language, password, key: id(), accessKey: ak(), timestamp: Date.now(), views: 0 });
+    let size = (new TextEncoder()).encode(content).byteLength;
+    let details = await database.put({ content, language, password, size, key: id(), accessKey: ak(), timestamp: Date.now(), views: 0 });
     res.send((({ password, ...data }) => data)(details));
   } catch (error) {
     res.send({ error: "internal server error" });

@@ -9,6 +9,7 @@ app.set("view engine", "ejs");
 
 app.use("/api", require("./routes/api.js"));
 app.use("/raw", require("./routes/raw.js"));
+app.use("/", require("./routes/[pulp].js"));
 
 app.get("/", (req, res) => {
   res.send({ message: "hello from pulp" });

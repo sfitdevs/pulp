@@ -47,4 +47,13 @@ const deletePulp = async (req, res) => {
   }
 }
 
-module.exports = { getPulp, createPulp, deletePulp };
+const updateViews = async (key) => {
+  try {
+    const data = await database.get(key);
+    if (data.content) await database.put({ ...data, views: parseInt(data.views) + 1 });
+  } catch (error) {
+    console.log("error in updateViews");
+  }
+}
+
+module.exports = { getPulp, createPulp, deletePulp, updateViews };

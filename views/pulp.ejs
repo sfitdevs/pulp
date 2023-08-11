@@ -5,57 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>pulp - share code</title>
+  <title>Pulp - Share Code</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script src="  https://printjs-4de6.kxcdn.com/print.min.js"></script>
-  <style>
-    body {
-      font-family: 'Mukta';
-    }
-
-    ::-webkit-scrollbar {
-      width: 0;
-    }
-
-    pre {
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    pre code.hljs {
-      padding: .5em;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Pulp</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="">History</a>
-          </li>
-        </ul>
-      </div>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button id="theme" class="btn btn-secondary">History</button>
+        </li>
+      </ul>
     </div>
   </nav>
   <div class="mx-4 my-2">
-    <pre><code id="code" class="<%= data.language %>"><%= data.content %></code></pre>
-    <button id="copy" class="btn btn-secondary btn-sm">Copy</button>
-    <button id="raw" class="btn btn-secondary btn-sm">Raw</button>
-    <button id="delete" class="btn btn-secondary btn-sm">Delete</button>
-    <button id="print" class="btn btn-secondary btn-sm">Print</button>
+    <pre><code id="codePrint" class="code language-<%= data.language %>"><%= data.content %></code></pre>
+    <div class="alert alert-secondary details text-center" role="alert">
+      <code style="color: black;"><%= data.size %> bytes | <%= date %> | <%= data.views %> views</code>
+    </div>
+    <div class="text-center">
+      <button id="copy" class="btn btn-secondary btn-sm">Copy</button>
+      <a class="btn btn-secondary btn-sm" href="">Raw</a>
+      <button id="delete" class="btn btn-danger btn-sm disabled">Delete</button>
+      <button id="print" class="btn btn-secondary btn-sm">Print</button>
+    </div>
     <!-- toast starts -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div id="toast" class="toast text-bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
@@ -68,6 +46,9 @@
     </div>
     <!-- toast ends -->
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
   <script>
     hljs.highlightAll();
 
@@ -85,10 +66,10 @@
     })
 
     printBtn.addEventListener("click", (e) => {
-      printJS('code', 'html');
+      printJS('codePrint', 'html');
     })
 
-    const showNotification = (msg) => {
+    const showNotification = (msg, type) => {
       const toast = document.getElementById("toast");
       const toastBody = document.getElementById("toastBody");
       const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);

@@ -12,7 +12,7 @@ app.use("/raw", require("./routes/raw.js"));
 app.use("/", require("./routes/[pulp].js"));
 
 app.get("/", (req, res) => {
-  res.send({ message: "hello from pulp" });
+  res.render("index");
 })
 
 app.get('*', ({ res }) => {

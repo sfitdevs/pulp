@@ -24,19 +24,19 @@
     </div>
   </nav>
   <div class="mx-4 my-2">
-    <pre><code id="codePrint" class="code language-<%= data.language %>"><%= data.content %></code></pre>
+    <pre><code id="content" class="code language-<%= language %>"><%= content %></code></pre>
     <div class="alert alert-secondary details text-center" role="alert">
-      <code style="color: black;"><%= data.size %> bytes | <%= date %> | <%= data.views %> views</code>
+      <code style="color: black;"><%= size %> | <%= date %> | <%= views %> views</code>
     </div>
     <div class="text-center">
       <button id="copy" class="btn btn-secondary btn-sm">Copy</button>
-      <a class="btn btn-secondary btn-sm" href="">Raw</a>
+      <a class="btn btn-secondary btn-sm" href="/raw/<%= key %>">Raw</a>
       <button id="delete" class="btn btn-danger btn-sm disabled">Delete</button>
       <button id="print" class="btn btn-secondary btn-sm">Print</button>
     </div>
     <!-- toast starts -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="toast" class="toast text-bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+      <div id="toast" class="toast text-white" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
           <div id="toastBody" class="toast-body"></div>
           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
@@ -46,37 +46,36 @@
     </div>
     <!-- toast ends -->
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
   <script>
     hljs.highlightAll();
 
     const copyBtn = document.getElementById("copy");
     const printBtn = document.getElementById("print");
-    const { content } = JSON.parse(`<%- JSON.stringify(data) %>`);
+    const content = document.getElementById("content").innerText;
 
     copyBtn.addEventListener("click", async (e) => {
       try {
         await navigator.clipboard.writeText(content);
-        showNotification("Text copied to clipboard");
+        showNotification("Text copied to clipboard", "success");
       } catch (error) {
-        showNotification("Something wrong happened while copying");
+        showNotification("Something wrong happened while copying", "danger");
       }
     })
 
     printBtn.addEventListener("click", (e) => {
-      printJS('codePrint', 'html');
+      showNotification("Print Functionality Coming Soon", "info");
     })
 
-    const showNotification = (msg, type) => {
+    const showNotification = (msg, type = "success") => {
       const toast = document.getElementById("toast");
       const toastBody = document.getElementById("toastBody");
       const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+      toast.classList.add(`text-bg-${type}`);
       toastBody.innerText = msg;
       toastBootstrap.show();
     }
-
   </script>
 </body>
 

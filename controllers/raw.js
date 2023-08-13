@@ -1,4 +1,5 @@
 const database = require("../database/database.js");
+const { updateViews } = require("./pulp.js");
 
 const rawPulp = async (req, res) => {
   try {
@@ -7,6 +8,7 @@ const rawPulp = async (req, res) => {
     let pulpData = await database.get(key);
     if (pulpData) {
       res.set("content-type", "text/plain").status(200).send(pulpData.content);
+      updateViews(key);
     } else {
       res.set("content-type", "text/plain").status(404).send("pulp not found");
     }

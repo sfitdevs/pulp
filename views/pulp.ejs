@@ -32,7 +32,7 @@
       <button id="copy" class="btn btn-secondary btn-sm">Copy</button>
       <a class="btn btn-secondary btn-sm" href="/raw/<%= key %>">Raw</a>
       <button id="delete" class="btn btn-danger btn-sm disabled">Delete</button>
-      <button id="print" class="btn btn-secondary btn-sm">Print</button>
+      <a class="btn btn-secondary btn-sm" href="/print/<%= key %>">Print</a>
     </div>
     <!-- toast starts -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -52,7 +52,6 @@
     hljs.highlightAll();
 
     const copyBtn = document.getElementById("copy");
-    const printBtn = document.getElementById("print");
     const content = document.getElementById("content").innerText;
 
     copyBtn.addEventListener("click", async (e) => {
@@ -62,10 +61,6 @@
       } catch (error) {
         showNotification("Something wrong happened while copying", "danger");
       }
-    })
-
-    printBtn.addEventListener("click", (e) => {
-      showNotification("Print Functionality Coming Soon", "info");
     })
 
     const showNotification = (msg, type = "success") => {

@@ -52,3 +52,7 @@ pre {
 .hljs-ln-code {
   padding-left: 6px !important;
 }
+
+.hljs-copy-button {
+  background-color: #6c757d !important;
+}

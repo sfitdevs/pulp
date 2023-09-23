@@ -13,10 +13,6 @@ app.use("/print", require("./routes/print.js"));
 app.use("/dl", require("./routes/download.js"));
 app.use("/", require("./routes/[pulp].js"));
 
-app.get("/", (req, res) => {
-  res.render("index");
-})
-
 app.get('*', ({ res }) => {
   res.set("content-type", "text/plain");
   res.status(404).send("not found");

@@ -5,6 +5,12 @@ const router = express.Router();
 const database = require("../database/database.js");
 const { updateViews } = require("../controllers/pulp.js");
 
+router.get("/", async (req, res) => {
+  let content = "";
+  if (req.query.key) content = (await database.get(req.query.key)).content || "";
+  res.render("index", { content });
+})
+
 router.get("/:key", async (req, res) => {
   try {
     let { key } = req.params;

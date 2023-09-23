@@ -5,63 +5,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>Pulp - Share Code</title>
+  <title>pulp/share-code</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
   <link href="index.css" rel="stylesheet">
-  <script type="module" defer>
-    (async ({ chrome, netscape }) => {
-      if (!chrome && !netscape) await import('https://unpkg.com/@ungap/custom-elements');
-      const { default: HighlightedCode } = await import('https://unpkg.com/highlighted-code');
-      HighlightedCode.useTheme('atom-one-light');
-    })(self);
-  </script>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Pulp</a>
+      <a class="navbar-brand" href="/">pulp</a>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <label for="file-upload" class="btn btn-secondary">Open File</label>
+          <label for="file-upload" class="btn btn-secondary">select file</label>
           <input id="file-upload" type="file" />
         </li>
       </ul>
     </div>
   </nav>
   <div class="mx-4 my-2">
-    <textarea is="highlighted-code" id="code-area" language="cpp" tab-size="2" class="form-control" rows="3"
-      placeholder="Paste code or start typing..." spellcheck="false" wrap="off" autofocus required></textarea>
+    <div id="editor"><%= content %></div>
     <div class="navbar mx-1">
-      <button id="create" class="btn btn-success btn-sm">Create Pulp</button>
+      <button id="create" class="btn btn-success btn-sm">create pulp</button>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settings">Settings</button>
+        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settings">settings</button>
       </ul>
     </div>
   </div>
-  <!-- modal starts -->
-  <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="settingsLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="settingsLabel">Settings</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- modal ends -->
-  <script src="index.js"></script>
-  <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js'></script>
+  <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ace.js"></script>
+  <script src="index.js" defer></script>
 </body>
 
 </html>

@@ -13,11 +13,6 @@ body {
   font-family: 'Bricolage Grotesque';
 }
 
-textarea {
-  height: 40vh;
-  font-weight: 1000px;
-}
-
 input[type="file"] {
   display: none;
 }
@@ -55,4 +50,13 @@ pre {
 
 .hljs-copy-button {
   background-color: #6c757d !important;
+}
+
+#editor {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
 }

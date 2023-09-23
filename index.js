@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 app.use("/api", require("./routes/api.js"));
 app.use("/raw", require("./routes/raw.js"));
 app.use("/print", require("./routes/print.js"));
+app.use("/dl", require("./routes/download.js"));
 app.use("/", require("./routes/[pulp].js"));
 
 app.get("/", (req, res) => {

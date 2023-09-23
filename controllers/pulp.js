@@ -47,6 +47,21 @@ const deletePulp = async (req, res) => {
   }
 }
 
+const downloadPulp = async (req, res) => {
+  try {
+    let { key } = req.params;
+    if (!key) return res.set("content-type", "text/plain").status(400).send("key not specified");
+    let pulpData = await database.get(key);
+    if (pulpData) {
+      res.set({ "content-type": "text/plain", "content-disposition": `attachment;filename=${pulpData.key}.${pulpData.language}` }).status(200).send(pulpData.content);
+    } else {
+      res.set("content-type", "text/plain").status(404).send("pulp not found");
+    }
+  } catch (error) {
+    res.status(500).send("internal server error");
+  }
+}
+
 const updateViews = async (key) => {
   try {
     const data = await database.get(key);
@@ -56,4 +71,4 @@ const updateViews = async (key) => {
   }
 }
 
-module.exports = { getPulp, createPulp, deletePulp, updateViews };
+module.exports = { getPulp, createPulp, deletePulp, downloadPulp, updateViews };

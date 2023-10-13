@@ -24,11 +24,86 @@
   </nav>
   <div class="mx-4 my-2">
     <div id="editor"><%= content %></div>
-    <div class="navbar mx-1">
-      <button id="create" class="btn btn-success btn-sm">create pulp</button>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settings">settings</button>
-      </ul>
+    <div class="navbar">
+      <button id="create" class="btn btn-success me-2" disabled>create pulp</button>
+      <div>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <select id="mode" class="form-select" aria-label="Default select example">
+            <option ext="as">actionscript</option>
+            <option ext="conf">apache_conf</option>
+            <option ext="xml">xml</option>
+            <option ext="cpp">c_cpp</option>
+            <option ext="clj">clojure</option>
+            <option ext="coffee">coffee</option>
+            <option ext="cr">crystal</option>
+            <option ext="cs">csharp</option>
+            <option ext="css">css</option>
+            <option ext="d">d</option>
+            <option ext="md">markdown</option>
+            <option ext="dart">dart</option>
+            <option ext="diff">diff</option>
+            <option ext="django">django</option>
+            <option ext="dockerfile">dockerfile</option>
+            <option ext="ex">elixir</option>
+            <option ext="elm">elm</option>
+            <option ext="rb">ruby</option>
+            <option ext="erl">erlang</option>
+            <option ext="f90">fortran</option>
+            <option ext="fs">fsharp</option>
+            <option ext="gcode">gcode</option>
+            <option ext="feature">gherkin</option>
+            <option ext="glsl">glsl</option>
+            <option ext="go">golang</option>
+            <option ext="graphql">graphqlschema</option>
+            <option ext="groovy">groovy</option>
+            <option ext="haml">haml</option>
+            <option ext="handlebars">handlebars</option>
+            <option ext="hs">haskell</option>
+            <option ext="hx">haxe</option>
+            <option ext="html">html</option>
+            <option ext="ini">ini</option>
+            <option ext="java">java</option>
+            <option ext="js">javascript</option>
+            <option ext="json">json</option>
+            <option ext="lua">lua</option>
+            <option ext="makefile">makefile</option>
+            <option ext="matlab">matlab</option>
+            <option ext="mel">mel</option>
+            <option ext="pl">perl</option>
+            <option ext="nginx">nginx</option>
+            <option ext="nim">nim</option>
+            <option ext="nix">nix</option>
+            <option ext="nsis">nsis</option>
+            <option ext="m">objectivec</option>
+            <option ext="ml">ocaml</option>
+            <option ext="php">php</option>
+            <option ext="txt" selected>text</option>
+            <option ext="ps1">powershell</option>
+            <option ext="pro">prolog</option>
+            <option ext="properties">properties</option>
+            <option ext="proto">protobuf</option>
+            <option ext="pp">puppet</option>
+            <option ext="py">python</option>
+            <option ext="qml">qml</option>
+            <option ext="r">r</option>
+            <option ext="rb">ruby</option>
+            <option ext="rs">rust</option>
+            <option ext="scala">scala</option>
+            <option ext="scm">scheme</option>
+            <option ext="scss">scss</option>
+            <option ext="sql">sql</option>
+            <option ext="styl">stylus</option>
+            <option ext="swift">swift</option>
+            <option ext="yaml">yaml</option>
+            <option ext="tcl">tcl</option>
+            <option ext="twig">twig</option>
+            <option ext="ts">typescript</option>
+            <option ext="vala">vala</option>
+            <option ext="vbs">vbscript</option>
+            <option ext="vhd">vhdl</option>
+          </select>
+        </ul>
+      </div>
     </div>
   </div>
   <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ace.js"></script>

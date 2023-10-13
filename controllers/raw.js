@@ -1,9 +1,9 @@
 const database = require("../database/database.js");
 const { updateViews } = require("./pulp.js");
 
-const rawPulp = async (req, res) => {
+const rawPulp = async ({ originalUrl }, res) => {
   try {
-    let { key } = req.params;
+    let [key] = originalUrl.replace("/", "").split("!");
     if (!key) return res.set("content-type", "text/plain").status(400).send("key not specified");
     let pulpData = await database.get(key);
     if (pulpData) {

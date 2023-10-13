@@ -3,7 +3,7 @@ const { rawPulp } = require("../controllers/raw.js");
 const router = express.Router();
 
 router
-  .get("/:key", rawPulp)
-  .post("/:key", rawPulp);
+  .get("/", rawPulp)
+  .post("/", rawPulp);
 
 module.exports = router;

@@ -1,14 +1,16 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const { PORT = 3000 } = process.env;
 
 app.use(express.json());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(cors("*"));
 
 app.use("/api", require("./routes/api.js"));
-app.use("/raw", require("./routes/raw.js"));
+app.use("/*!", require("./routes/raw.js"));
 app.use("/print", require("./routes/print.js"));
 app.use("/dl", require("./routes/download.js"));
 app.use("/", require("./routes/[pulp].js"));

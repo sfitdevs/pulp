@@ -29,7 +29,7 @@ pre {
 }
 
 .details {
-  padding: 6px;
+  padding: 8px;
   font-size: 14px;
 }
 
@@ -54,7 +54,7 @@ pre {
 
 #editor {
   position: relative;
-  height: 83vh;
+  height: 90vh;
   width: 100%;
   font-size: 14px;
   font-weight: bold;

@@ -1,15 +1,21 @@
-let textArea = document.getElementById("code-area");
 let settingsBtn = document.getElementById("settingsBtn");
 let fileUpload = document.getElementById("file-upload");
 let langShow = document.getElementById("lang-show");
 let selectLang = document.getElementById("mode");
 let createBtn = document.getElementById("create");
+let descriptionElement = document.getElementById("description");
 let editor = ace.edit("editor");
 // editor settings
+editor.focus();
 editor.getSession().setUseWorker(false);
 editor.setTheme("ace/theme/xcode");
 editor.getSession().setMode("ace/mode/text");
 editor.setShowPrintMargin(false);
+editor.setOptions({
+  enableBasicAutocompletion: true,
+  enableSnippets: true,
+  enableLiveAutocompletion: true
+});
 editor.getSession().on("change", function () {
   let content = editor.getValue() || "";
   (!content.trim()) ? createBtn.disabled = true : createBtn.disabled = false
@@ -44,15 +50,16 @@ const createPulp = async () => {
   let content = editor.getValue();
   if (!content || !content.trim()) return
   let language = selectLang.options[selectLang.selectedIndex].getAttribute('ext');
+  let description = descriptionElement.value;
   let response = await fetch("/api", {
     method: "POST",
-    body: JSON.stringify({ content, language }),
+    body: JSON.stringify({ content, language, description }),
     headers: { "Content-Type": "application/json" }
   });
   let { key, accessKey } = await response.json();
-  await navigator.clipboard.writeText(`https://p.aadi.lol/${key}`);
+  await navigator.clipboard.writeText(`https://pulp.deta.dev/${key}`);
   localStorage.setItem(key, accessKey);
-  location = `http://p.aadi.lol/${key}`;
+  location = `http://pulp.deta.dev/${key}`;
 }
 // event listeners
 fileUpload.addEventListener('change', fileChanged, false);

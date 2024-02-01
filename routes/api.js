@@ -5,6 +5,7 @@ const router = express.Router();
 router
   .get("/:key", getPulp)
   .post("/", createPulp)
-  .delete("/", deletePulp);
+  .delete("/", deletePulp)
+  .put("/:key")
 
 module.exports = router;

@@ -21,10 +21,10 @@ const getPulp = async (req, res) => {
 
 const createPulp = async (req, res) => {
   try {
-    let { content, language = "txt", password = "" } = req.body;
+    let { content, language = "txt", description = "", password = "" } = req.body;
     if (!content) return res.status(400).send({ message: "content can't be empty" });
     let size = (new TextEncoder()).encode(content).byteLength;
-    let details = await database.put({ content, language, password, size, key: id(), accessKey: ak(), timestamp: Date.now(), views: 0 });
+    let details = await database.put({ content, description, language, password, size, key: id(), accessKey: ak(), timestamp: Date.now(), views: 0 });
     res.status(200).send((({ password, ...data }) => data)(details));
   } catch (error) {
     res.status(500).send({ message: "internal server error" });
